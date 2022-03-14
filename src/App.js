@@ -1,24 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import {AppProvider} from './contest'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import Error from './components/Error'
+import Country from './components/Country';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider>
+    <BrowserRouter>
+        <Routes>
+            <Route path='/' element={<Navbar/>}>
+              <Route index element={<Home />}></Route>
+              <Route path='country/:country' element={<Country/>}></Route>
+              <Route path='*' element={<Error />}></Route>
+            </Route>
+        </Routes>
+    </BrowserRouter>
+    </AppProvider>
   );
 }
 
