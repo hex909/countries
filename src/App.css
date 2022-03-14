@@ -297,7 +297,7 @@ main {
 
 .more-details p {
   padding-bottom: 13px;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .details-info {
