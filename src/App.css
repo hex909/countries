@@ -102,7 +102,6 @@ main {
   font-size: 25px;
   margin-right: 21px;
 }
-
 .input-field {
   display: flex;
   width: clamp(273px, 50vw, 480px);
