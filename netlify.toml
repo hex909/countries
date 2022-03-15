@@ -1,4 +1,0 @@
-[[redirects]]
-  from = "/*"
-  to = "/http://countries/src/components/Error.js"
-  status = 404
