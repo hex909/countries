@@ -1,4 +1,4 @@
-# Frontend Mentor - Todo App
+# Frontend Mentor - Countries
 
 This project is a challenge by [Frontend Mentor](https://www.frontendmentor.io).
 
