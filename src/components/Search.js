@@ -6,8 +6,8 @@ import {MdKeyboardArrowDown} from 'react-icons/md'
 
 
 
-export default function Search({countryName,setCountryName}) {
-    const {state, fetchDataByName, dispatch, fetchByRegion} = useGlobal()
+export default function Search() {
+    const {state, fetchDataByName, dispatch, fetchByRegion,countryName,setCountryName} = useGlobal()
     const [filterList, setFilterList] = useState(false)
     const regionList = ['all', 'africa','americas','asia','europe','oceania']
     

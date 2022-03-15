@@ -115,6 +115,7 @@ main {
 
 .input {
   height: 100%;
+  width: 100%;
   border: none;
   outline: none;
   font-size: 1.142857143rem;
