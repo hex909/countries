@@ -1,5 +1,5 @@
 import React, {
-  useCallback,
+  // useCallback,
   useContext,
   useEffect,
   useReducer,
@@ -18,6 +18,7 @@ const urls = {
 
 function reducer(state, action) {
   if (action.type === "CHANGE_THEME") {
+    localStorage.setItem("theme", !state.isDark);
     return { ...state, isDark: !state.isDark };
   } else if (action.type === "SHOW_BY_REGION") {
     return { ...state, region: action.region };
@@ -28,12 +29,14 @@ function reducer(state, action) {
 }
 
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, { isDark: false, region: "" });
+  const [state, dispatch] = useReducer(reducer, {
+    isDark: localStorage.getItem("theme") === "true" ? true : false,
+    region: "",
+  });
   const [countryList, setCountryList] = useState([]);
   const [message, setMessage] = useState("Loading");
   const body = useRef(document.querySelector("body"));
-  const [countryName, setCountryName] = useState('')
-
+  const [countryName, setCountryName] = useState("");
 
   async function fetchData(url) {
     setMessage("Loading...");
@@ -43,19 +46,13 @@ const AppProvider = ({ children }) => {
         const data = await responce.json();
         setCountryList(data);
       } else {
-        setMessage("Not Found");
         throw new Error("Not Found");
       }
     } catch {
+      setMessage("Server down please try after some time.");
       setCountryList([]);
     }
   }
-
-  const fetchDataByName = useCallback((name) => {
-    let url = urls.nameUrl + name;
-    fetchData(url);
-    dispatch({ type: "TO_ALL" });
-  }, [])
 
   function fetchByRegion(region) {
     let url = urls.regionUrl + region;
@@ -71,14 +68,6 @@ const AppProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (countryName === '') {
-      fetchData(urls.allUrl);
-    }else {
-      fetchDataByName(countryName)
-    }
-  }, [countryName, fetchDataByName])
-
-  useEffect(() => {
     body.current.className = `${state.isDark ? "dark" : "light"}`;
   }, [state.isDark]);
 
@@ -88,15 +77,13 @@ const AppProvider = ({ children }) => {
         state,
         dispatch,
         countryList,
-        fetchDataByName,
         message,
         fetchByRegion,
         urls,
         setMessage,
         countryName,
-        setCountryName
-      }}
-    >
+        setCountryName,
+      }}>
       {children}
     </AppContest.Provider>
   );
